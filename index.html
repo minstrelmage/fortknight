@@ -329,6 +329,8 @@
             renderHighscores();
         }
 
+        let evadedMoves = 0;
+
         let highscoreDict;
         try {
             highscoreDict = JSON.parse(localStorage.getItem("fortknightHS"));
@@ -526,7 +528,13 @@
                     if (possibleMoves.includes(playerIndex) && gameMode != "drunk") {
                         this.index = playerIndex;
                         // if i can hit player, hit player
-                    } else {
+                    }
+                    else if (possibleMoves.includes(playerIndex) && gameMode === "drunk") {
+                        evadedMoves++;
+                        this.index = possibleMoves[Math.floor(Math.random() * possibleMoves.length)];
+                    }
+                    else {
+                        evadedMoves = 0;
                         this.index = possibleMoves[Math.floor(Math.random() * possibleMoves.length)];
                     }
                     this.moved = true;

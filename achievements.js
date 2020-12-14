@@ -45,8 +45,14 @@ const achievementList = {
         achievementStatus: 'Locked',
         achievementProgress: 0,
         achievementGoal: 5
+    },
+    "lucky": {
+        achievementName: 'Your Lucky Day',
+        achievementDescrption: 'Evade potential capture three times in a row in drunk mode',
+        achievementStatus: 'Locked',
+        achievementProgress: 0,
+        achievementGoal: 3
     }
-
 }
 
 let playerLazyMoves = 0;
@@ -79,6 +85,19 @@ function checkAchievements() {
         highscoreDict.achievementProgress['lazy'].achievementStatus = 'Unlocked';
         achievementUnlock(highscoreDict.achievementProgress['lazy'].achievementName,
             highscoreDict.achievementProgress['lazy'].achievementDescrption);
+    }
+
+    // your lucky day achievement
+    if (gameMode == "drunk") {
+        if(highscoreDict.achievementProgress['lucky'].achievementStatus === 'Locked') {
+            highscoreDict.achievementProgress['lucky'].achievementProgress = evadedMoves;
+        }
+
+        if (evadedMoves >= 3 && highscoreDict.achievementProgress['lucky'].achievementStatus === 'Locked') {
+            highscoreDict.achievementProgress['lucky'].achievementStatus = 'Unlocked';
+            achievementUnlock(highscoreDict.achievementProgress['lucky'].achievementName,
+                highscoreDict.achievementProgress['lucky'].achievementDescrption);
+        }
     }
 
 
