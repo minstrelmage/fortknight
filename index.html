@@ -937,8 +937,10 @@
             checkAchievements();
             drawPlayer();
 
-
-            setTimeout(arcadeModeExec, 2500);
+            var arcadeTime = setTimeout(arcadeModeExec, 2500);
+            if (!gameIsPlayed) {
+                clearTimeout(arcadeTime);
+            }
         }
 
         function arcadeModeCall() {
